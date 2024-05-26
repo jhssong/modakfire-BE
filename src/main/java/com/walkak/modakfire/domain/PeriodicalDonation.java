@@ -22,10 +22,10 @@ public class PeriodicalDonation {
     private Long amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="member_id")
+    private Member member;
 
-    @OneToOne(mappedBy = "periodical_donation")
+    @OneToOne(mappedBy = "periodicalDonation")
     private Item item;
 
 }

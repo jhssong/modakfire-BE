@@ -18,9 +18,9 @@ public class Market {
     private Long id;
     private String name;
     private String location;
-    private MarketType type;
     private String Info;
 
-    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "market")
     private List<Item> items;
 }

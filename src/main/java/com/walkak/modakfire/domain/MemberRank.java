@@ -1,5 +1,5 @@
 package com.walkak.modakfire.domain;
 
-public enum Rank {
+public enum MemberRank {
     EMBER,FIREWOOD,BONFIRE
 }
