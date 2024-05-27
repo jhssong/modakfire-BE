@@ -1,4 +1,4 @@
-package com.walkak.modakfire.domain;
+package com.walkak.modakfire.domain.EnumType;
 
 public enum CenterType {
     WELFARE,DISABLED,CHILD,ONEPARENT,HOMELESS,MENTALCARE,REHABILITATION,COMPREHENSIVE,COMMUNITY

@@ -1,10 +1,9 @@
 package com.walkak.modakfire.domain;
 
+import com.walkak.modakfire.domain.EnumType.CenterType;
+import com.walkak.modakfire.dto.CenterResponseDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -19,10 +18,20 @@ public class Center {
     @Column(name = "center_id")
     private Long id;
     private String name;
-    private String location;
-    private CenterType type;
+    private String city;
+    private String gu;
+    private CenterType centerType;
     private String info;
+    private Long donorNum;
 
-    @OneToMany(mappedBy = "center")
-    private List<Item> items;
+    /*@OneToMany(mappedBy = "center")
+    @ToString.Exclude
+    private List<Item> items;*/
+
+    public CenterResponseDTO translate(Center center){
+        CenterResponseDTO centerResponseDTO = new CenterResponseDTO();
+        centerResponseDTO.update(this);
+        return centerResponseDTO;
+    }
+
 }

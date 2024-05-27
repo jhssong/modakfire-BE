@@ -1,10 +1,7 @@
 package com.walkak.modakfire.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -25,6 +22,6 @@ public class Donation {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne(mappedBy = "donation")
-    private Item item;
+    /*@OneToOne(mappedBy = "donation")
+    private Item item;*/
 }
