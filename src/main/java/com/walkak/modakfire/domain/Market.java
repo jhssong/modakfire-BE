@@ -1,10 +1,7 @@
 package com.walkak.modakfire.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class Market {
     private String location;
     private String Info;
 
-    //@OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OneToMany(mappedBy = "market")
-    private List<Item> items;
+    /*@OneToMany(mappedBy = "market")
+    @ToString.Exclude
+    private List<Item> items;*/
 }

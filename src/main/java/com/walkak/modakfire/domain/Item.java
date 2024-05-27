@@ -1,10 +1,13 @@
 package com.walkak.modakfire.domain;
 
+import com.walkak.modakfire.dto.ItemResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Comparator;
 
 @Data
 @Entity
@@ -41,4 +44,22 @@ public class Item {
     @JoinColumn(name = "center_id")
     private Center center;
 
+    public ItemResponseDTO translate(){
+        ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
+        itemResponseDTO.update(this);
+        return itemResponseDTO;
+    }
+
+    public static Comparator<Item> raisedAmountComparator = new Comparator<Item>() {
+        @Override
+        public int compare(Item i1, Item i2) {//남은 금액 오름차순
+            return Double.compare(i1.getPrice()-i1.getRaisedAmount(),i2.getPrice()-i2.getRaisedAmount());
+        }
+    };
+    public static Comparator<Item> idComparator = new Comparator<Item>() {
+        @Override
+        public int compare(Item i2, Item i1) {//등록일 내림차순
+            return Double.compare(i1.getId(),i2.getId());
+        }
+    };
 }

@@ -1,10 +1,8 @@
 package com.walkak.modakfire.domain;
 
+import com.walkak.modakfire.domain.EnumType.MemberRank;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,10 +20,12 @@ public class Member {
     private MemberRank memberRank;
     private LocalDateTime registerDate;
 
-    @OneToMany(mappedBy = "member")
-    private List<Donation> donations;
+    /*@OneToMany(mappedBy = "member")
+    @ToString.Exclude
+    private List<Donation> donations;*/
 
-    @OneToMany(mappedBy = "member")
-    private List<PeriodicalDonation> periodicalDonations;
+    /*@OneToMany(mappedBy = "member")
+    @ToString.Exclude
+    private List<PeriodicalDonation> periodicalDonations;*/
 
 }
