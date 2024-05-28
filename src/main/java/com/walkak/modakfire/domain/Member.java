@@ -20,6 +20,10 @@ public class Member {
     private MemberRank memberRank;
     private LocalDateTime registerDate;
 
+    @OneToMany(mappedBy = "member")
+    @ToString.Exclude
+    private List<Like> likes;
+
     /*@OneToMany(mappedBy = "member")
     @ToString.Exclude
     private List<Donation> donations;*/

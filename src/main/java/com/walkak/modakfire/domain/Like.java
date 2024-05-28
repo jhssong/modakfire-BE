@@ -17,10 +17,12 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="like_id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name="like")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
     private Member member;
-    @ManyToOne
-    @JoinColumn(name="like")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="center_id")
     private Center center;
 }
