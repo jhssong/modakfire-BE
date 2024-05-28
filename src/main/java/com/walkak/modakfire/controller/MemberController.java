@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
+@CrossOrigin(origins = "http://localhost:5173")
 public class MemberController {
     private final MemberService memberService;
 
@@ -19,17 +20,17 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public MemberResponseDTO getMember(@PathVariable Long id) {
+    public MemberResponseDTO getMember(@PathVariable String id) {
         return memberService.getMemberById(id);
     }
 
     @PutMapping("/{id}")
-    public MemberResponseDTO updateMember(@PathVariable Long id, @RequestBody MemberUpdateRequestDTO memberUpdateRequestDTO) {
+    public MemberResponseDTO updateMember(@PathVariable String id, @RequestBody MemberUpdateRequestDTO memberUpdateRequestDTO) {
         return memberService.updateMemberById(id, memberUpdateRequestDTO);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteMember(@PathVariable Long id) {
+    public String deleteMember(@PathVariable String id) {
         return memberService.deleteMemberById(id);
     }
 }

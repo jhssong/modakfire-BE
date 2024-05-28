@@ -17,23 +17,26 @@ import java.util.List;
 public class Member {
     @Id
     @Column(name = "member_id")
-    private Long id;
+    private String id;
     private String name;
     private String email;
+    @Enumerated(EnumType.STRING)
     private MemberRank memberRank;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerDate;
 
     @OneToMany(mappedBy = "member")
     @ToString.Exclude
-    private List<Like> likes;
+    private List<Likes> likes;
 
-    public Member(Long id, String name, String email, String registerDate) {
+    public Member(String id, String name, String email, String registerDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.memberRank = MemberRank.EMBER;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.registerDate = LocalDateTime.parse(registerDate, formatter);
+        this.likes = null;
     }
 
     /*@OneToMany(mappedBy = "member")

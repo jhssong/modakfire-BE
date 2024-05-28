@@ -11,29 +11,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
 
     public MemberResponseDTO createMember(MemberRequestDTO memberRequestDTO) {
-        Long id = memberRequestDTO.getId();
+        String id = memberRequestDTO.getId();
         String name = memberRequestDTO.getName();
         String email = memberRequestDTO.getEmail();
         String registerDate = memberRequestDTO.getRegisterDate();
 
         Member member = new Member(id, name, email, registerDate);
+        System.out.println(member);
         memberRepository.save(member);
 
         return member.translate();
     }
 
-    public MemberResponseDTO getMemberById(Long id) {
+    public MemberResponseDTO getMemberById(String id) {
         Member member = memberRepository.findById(id).orElseThrow();
         return member.translate();
     }
 
-    public MemberResponseDTO updateMemberById(Long id, MemberUpdateRequestDTO memberRequestDTO) {
+    public MemberResponseDTO updateMemberById(String id, MemberUpdateRequestDTO memberRequestDTO) {
         Member member = memberRepository.findById(id).orElseThrow();
         member.setName(memberRequestDTO.getName());
         member.setEmail(memberRequestDTO.getEmail());
@@ -41,7 +41,7 @@ public class MemberService {
         return member.translate();
     }
 
-    public String deleteMemberById(Long id) {
+    public String deleteMemberById(String id) {
         try {
             Member member = memberRepository.findById(id).orElseThrow();
             memberRepository.delete(member);
