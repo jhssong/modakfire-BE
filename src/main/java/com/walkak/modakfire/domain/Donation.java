@@ -26,10 +26,4 @@ public class Donation {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
     private Item item;
 
-    public DonationResponseDTO translate() {
-        DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
-        donationResponseDTO.update(this);
-        return donationResponseDTO;
-    }
-
 }

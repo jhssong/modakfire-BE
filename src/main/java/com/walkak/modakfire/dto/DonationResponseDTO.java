@@ -7,5 +7,4 @@ public class DonationResponseDTO {
     private LocalDateTime date;
     private Long totalAmount;
     private Long orderId;
-    private
 }
