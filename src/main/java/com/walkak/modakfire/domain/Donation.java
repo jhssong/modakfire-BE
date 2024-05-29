@@ -1,5 +1,6 @@
 package com.walkak.modakfire.domain;
 
+import com.walkak.modakfire.dto.DonationResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,13 @@ public class Donation {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    /*@OneToOne(mappedBy = "donation")
-    private Item item;*/
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
+    private Item item;
+
+    public DonationResponseDTO translate() {
+        DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
+        donationResponseDTO.update(this);
+        return donationResponseDTO;
+    }
+
 }
