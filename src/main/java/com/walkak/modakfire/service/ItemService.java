@@ -1,7 +1,7 @@
 package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Item;
-import com.walkak.modakfire.dto.ItemResponseDTO;
+import com.walkak.modakfire.dto.SimpleItemResponseDTO;
 import com.walkak.modakfire.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,9 @@ public class ItemService {
     public List<Item> findItemsByCenterIdAndSortByRaisedAmount(Long id){
         List<Item> items = itemRepository.findAllByCenterId(id);
         items.sort(Item.raisedAmountComparator);
+        for (Item item : items) {
+            System.out.println(item);
+        }
         return items;
     }
     public List<Item> findItemsByCenterIdAndSortByItemId(Long id){
@@ -29,12 +32,12 @@ public class ItemService {
     public List<Item> findItemsByCenterId(Long id){
         return itemRepository.findAllByCenterId(id);
     }
-    public ItemResponseDTO findItemByItemId(Long id){
+    public SimpleItemResponseDTO findItemByItemId(Long id){
 
         Item item = itemRepository.findById(id).orElseThrow();
-        ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
-        itemResponseDTO.update(item);
-        return itemResponseDTO;
+        SimpleItemResponseDTO simpleItemResponseDTO = new SimpleItemResponseDTO();
+        simpleItemResponseDTO.update(item);
+        return simpleItemResponseDTO;
     }
 
 }

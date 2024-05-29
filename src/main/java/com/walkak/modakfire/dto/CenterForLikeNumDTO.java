@@ -1,13 +1,12 @@
 package com.walkak.modakfire.dto;
 
-import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.EnumType.CenterType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SimpleCenterResponseDTO {
+public class CenterForLikeNumDTO {
     private Long id;
     private String name;
     private String city;
@@ -16,8 +15,9 @@ public class SimpleCenterResponseDTO {
     private String info;
     private String location;
     private Long donorNum;
+    private Long likeNum;
 
-    public void update(Center center){
+    public void update(SimpleCenterResponseDTO center,long likeNum){
         id = center.getId();
         name = center.getName();
         city = center.getCity();
@@ -26,5 +26,6 @@ public class SimpleCenterResponseDTO {
         info = center.getInfo();
         location = center.getLocation();
         donorNum = center.getDonorNum();
+        this.likeNum = likeNum;
     }
 }
