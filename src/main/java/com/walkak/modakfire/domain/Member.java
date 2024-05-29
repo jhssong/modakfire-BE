@@ -20,7 +20,6 @@ public class Member {
     private String id;
     private String name;
     private String email;
-    @Enumerated(EnumType.STRING)
     private MemberRank memberRank;
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerDate;
