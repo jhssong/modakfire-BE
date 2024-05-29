@@ -1,6 +1,5 @@
 package com.walkak.modakfire.domain;
 
-import com.walkak.modakfire.dto.DonationResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
