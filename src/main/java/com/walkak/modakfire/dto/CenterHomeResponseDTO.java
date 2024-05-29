@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class CenterItemsResponseDTO {
-    Center center;
+    CenterResponseDTO centerResponseDTO;
     List<ItemResponseDTO> itemResponseDTOList;
 }

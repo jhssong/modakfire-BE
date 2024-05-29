@@ -1,6 +1,6 @@
 package com.walkak.modakfire.domain;
 
-import com.walkak.modakfire.dto.ItemResponseDTO;
+import com.walkak.modakfire.dto.SimpleItemResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,8 +44,8 @@ public class Item {
     @JoinColumn(name = "center_id")
     private Center center;
 
-    public ItemResponseDTO translate(){
-        ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
+    public SimpleItemResponseDTO translate(){
+        SimpleItemResponseDTO itemResponseDTO = new SimpleItemResponseDTO();
         itemResponseDTO.update(this);
         return itemResponseDTO;
     }
@@ -58,7 +58,7 @@ public class Item {
     };
     public static Comparator<Item> idComparator = new Comparator<Item>() {
         @Override
-        public int compare(Item i2, Item i1) {//등록일 내림차순
+        public int compare(Item i1, Item i2) {//등록일 내림차순
             return Double.compare(i1.getId(),i2.getId());
         }
     };

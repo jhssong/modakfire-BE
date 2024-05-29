@@ -14,6 +14,7 @@ public class CenterResponseDTO {
     private String gu;
     private CenterType centerType;
     private String info;
+    private String location;
     private Long donorNum;
 
     public void update(Center center){
@@ -23,6 +24,7 @@ public class CenterResponseDTO {
         gu = center.getGu();
         centerType = center.getCenterType();
         info = center.getInfo();
+        location = center.getLocation();
         donorNum = center.getDonorNum();
     }
 }

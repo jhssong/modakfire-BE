@@ -1,7 +1,7 @@
 package com.walkak.modakfire.domain;
 
 import com.walkak.modakfire.domain.EnumType.CenterType;
-import com.walkak.modakfire.dto.CenterResponseDTO;
+import com.walkak.modakfire.dto.SimpleCenterResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,10 +29,10 @@ public class Center {
     @ToString.Exclude
     private List<Item> items;
 
-    public CenterResponseDTO translate(Center center){
-        CenterResponseDTO centerResponseDTO = new CenterResponseDTO();
-        centerResponseDTO.update(this);
-        return centerResponseDTO;
+    public SimpleCenterResponseDTO translate(){
+        SimpleCenterResponseDTO simpleCenterResponseDTO = new SimpleCenterResponseDTO();
+        simpleCenterResponseDTO.update(this);
+        return simpleCenterResponseDTO;
     }
 
 }
