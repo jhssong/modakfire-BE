@@ -39,5 +39,11 @@ public class ItemService {
         itemResponseDTO.update(item);
         return itemResponseDTO;
     }
+    public void updateItemByDonation(Item item) {
+        itemRepository.save(item);
+    }
 
+    public Item getItemEntityById(Long id) {
+        return itemRepository.findById(id).orElseThrow();
+    }
 }

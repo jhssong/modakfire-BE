@@ -1,5 +1,7 @@
 package com.walkak.modakfire.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.walkak.modakfire.dto.SimpleDonationResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +22,16 @@ public class Donation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore
+    @ToString.Exclude
     private Member member;
 
-    /*@OneToOne(mappedBy = "donation")
-    private Item item;*/
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
+    private Item item;
+
+    public SimpleDonationResponseDTO translate(){
+        SimpleDonationResponseDTO donationResponseDTO = new SimpleDonationResponseDTO();
+        donationResponseDTO.update(this);
+        return donationResponseDTO;
+    }
 }
