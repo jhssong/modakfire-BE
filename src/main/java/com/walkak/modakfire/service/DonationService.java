@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -31,19 +31,17 @@ public class DonationService {
         // Find centers to donate
         CenterRequestDTO centerRequestDTO = new CenterRequestDTO(
                 fastDonationRequestDTO.getCity(),
-                fastDonationRequestDTO.getGu(),
+                "전체",
                 fastDonationRequestDTO.getCenterType());
         List<CenterResponseDTO> centerList = centerService.findCentersByCon(centerRequestDTO);
+        Collections.shuffle(centerList);
 
         Long totalAmount = fastDonationRequestDTO.getTotalAmount();
-        while(totalAmount != 0L) {
-            // Find items at random center
-            Random rand = new Random();
-            CenterResponseDTO randomCenter = centerList.get(rand.nextInt(centerList.size()));
-            System.out.println(randomCenter);
 
+        // Assume that totalDonation doesn't exceed total amount of items of centers in the city
+        for (int centerI = 0; centerI < centerList.size(); centerI++) {
             // Get ItemList from center
-            List<Item> itemList = itemService.findItemsByCenterId(randomCenter.getId());
+            List<Item> itemList = itemService.findItemsByCenterId(centerList.get(centerI).getId());
 
             // Update item status (update the raisedAmount)
             for (int i = 0; i < itemList.size(); i++) {
@@ -77,8 +75,6 @@ public class DonationService {
 
                 donationRepository.save(donation);
                 donationResponseDTO.addDonationResponseDTO(donation.translate());
-
-                if (totalAmount == 0L || i == itemList.size() - 1) break;
             }
         }
 
