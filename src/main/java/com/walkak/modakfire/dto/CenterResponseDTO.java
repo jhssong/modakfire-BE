@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SimpleCenterResponseDTO {
+public class CenterResponseDTO {
     private Long id;
     private String name;
     private String city;

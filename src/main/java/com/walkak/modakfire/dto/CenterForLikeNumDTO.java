@@ -17,7 +17,7 @@ public class CenterForLikeNumDTO {
     private Long donorNum;
     private Long likeNum;
 
-    public void update(SimpleCenterResponseDTO center,long likeNum){
+    public void update(CenterResponseDTO center, long likeNum){
         id = center.getId();
         name = center.getName();
         city = center.getCity();

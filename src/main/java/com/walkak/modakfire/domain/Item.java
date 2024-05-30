@@ -1,6 +1,6 @@
 package com.walkak.modakfire.domain;
 
-import com.walkak.modakfire.dto.SimpleItemResponseDTO;
+import com.walkak.modakfire.dto.ItemResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,8 +44,8 @@ public class Item {
     @JoinColumn(name = "center_id")
     private Center center;
 
-    public SimpleItemResponseDTO translate(){
-        SimpleItemResponseDTO itemResponseDTO = new SimpleItemResponseDTO();
+    public ItemResponseDTO translate(){
+        ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
         itemResponseDTO.update(this);
         return itemResponseDTO;
     }

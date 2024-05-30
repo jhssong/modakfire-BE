@@ -2,8 +2,8 @@ package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.EnumType.CenterType;
-import com.walkak.modakfire.dto.SimpleCenterResponseDTO;
-import com.walkak.modakfire.dto.HomeRequestDTO;
+import com.walkak.modakfire.dto.CenterResponseDTO;
+import com.walkak.modakfire.dto.CenterRequestDTO;
 import com.walkak.modakfire.repository.CenterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,24 +17,24 @@ import java.util.List;
 public class CenterService {
     private final CenterRepository centerRepository;
 
-    public List<SimpleCenterResponseDTO> findCentersByCon(HomeRequestDTO homeRequestDTO){
+    public List<CenterResponseDTO> findCentersByCon(CenterRequestDTO centerRequestDTO){
         List<Center> centers;
-        String city = homeRequestDTO.getCity();
-        String gu = homeRequestDTO.getGu();
-        CenterType centerType = homeRequestDTO.getCenterType();
-        if(homeRequestDTO.isAllWhole()) {
+        String city = centerRequestDTO.getCity();
+        String gu = centerRequestDTO.getGu();
+        CenterType centerType = centerRequestDTO.getCenterType();
+        if(centerRequestDTO.isAllWhole()) {
             centers = centerRepository.findAll();
-        }else if (homeRequestDTO.isCityWhole() && homeRequestDTO.isGuWhole()) {
+        }else if (centerRequestDTO.isCityWhole() && centerRequestDTO.isGuWhole()) {
             centers = centerRepository.findAllByCenterType(centerType);
-        }else if (homeRequestDTO.isCityWhole() && homeRequestDTO.isCenterTypeWhole()) {
+        }else if (centerRequestDTO.isCityWhole() && centerRequestDTO.isCenterTypeWhole()) {
             centers = centerRepository.findAllByGu(gu);
-        }else if (homeRequestDTO.isGuWhole() && homeRequestDTO.isCenterTypeWhole()) {
+        }else if (centerRequestDTO.isGuWhole() && centerRequestDTO.isCenterTypeWhole()) {
             centers = centerRepository.findAllByCity(city);
-        }else if(homeRequestDTO.isCityWhole()){
+        }else if(centerRequestDTO.isCityWhole()){
             centers = centerRepository.findAllByGuAndCenterType(gu,centerType);
-        } else if(homeRequestDTO.isGuWhole()){
+        } else if(centerRequestDTO.isGuWhole()){
             centers = centerRepository.findAllByCityAndCenterType(city,centerType);
-        } else if(homeRequestDTO.isCenterTypeWhole()) {
+        } else if(centerRequestDTO.isCenterTypeWhole()) {
             centers = centerRepository.findAllByCityAndGu(city, gu);
         } else {
             centers = centerRepository.findAllByCityAndGuAndCenterType(city, gu, centerType);

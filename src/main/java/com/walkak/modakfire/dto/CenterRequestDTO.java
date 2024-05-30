@@ -8,7 +8,7 @@ import static com.walkak.modakfire.domain.EnumType.CenterType.WHOLE;
 
 @Data
 @NoArgsConstructor
-public class HomeRequestDTO {
+public class CenterRequestDTO {
     private String city;
     private String gu;
     private CenterType centerType;

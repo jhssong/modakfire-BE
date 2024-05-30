@@ -9,5 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 public class CenterHomeResponseDTO {
     CenterForLikeNumDTO centerForLikeNumDTO;
-    List<SimpleItemResponseDTO> simpleItemResponseDTOList;
+    List<ItemResponseDTO> itemResponseDTOList;
 }
