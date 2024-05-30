@@ -29,7 +29,7 @@ public class Center {
     @ToString.Exclude
     private List<Item> items;
 
-    public CenterResponseDTO translate(Center center){
+    public CenterResponseDTO translate(){
         CenterResponseDTO centerResponseDTO = new CenterResponseDTO();
         centerResponseDTO.update(this);
         return centerResponseDTO;

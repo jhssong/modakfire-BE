@@ -19,6 +19,9 @@ public class ItemService {
     public List<Item> findItemsByCenterIdAndSortByRaisedAmount(Long id){
         List<Item> items = itemRepository.findAllByCenterId(id);
         items.sort(Item.raisedAmountComparator);
+        for (Item item : items) {
+            System.out.println(item);
+        }
         return items;
     }
     public List<Item> findItemsByCenterIdAndSortByItemId(Long id){
