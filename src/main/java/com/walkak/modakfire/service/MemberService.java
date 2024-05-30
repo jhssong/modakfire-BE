@@ -33,6 +33,10 @@ public class MemberService {
         return member.translate();
     }
 
+    public Member getMemberEntityById(String id) {
+        return memberRepository.findById(id).orElseThrow();
+    }
+
     public MemberResponseDTO updateMemberById(String id, MemberUpdateRequestDTO memberRequestDTO) {
         Member member = memberRepository.findById(id).orElseThrow();
         member.setName(memberRequestDTO.getName());

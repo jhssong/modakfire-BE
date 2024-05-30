@@ -1,5 +1,7 @@
 package com.walkak.modakfire.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.walkak.modakfire.domain.EnumType.MemberRank;
 import com.walkak.modakfire.dto.MemberResponseDTO;
 import jakarta.persistence.*;
@@ -38,11 +40,12 @@ public class Member {
         this.likes = null;
     }
 
-    /*@OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member")
+    @JsonIgnore
     @ToString.Exclude
-    private List<Donation> donations;*/
+    private List<Donation> donations;
 
-    /*@OneToMany(mappedBy = "member")
+    /*@OneToOne(mappedBy = "member")
     @ToString.Exclude
     private List<PeriodicalDonation> periodicalDonations;*/
 
