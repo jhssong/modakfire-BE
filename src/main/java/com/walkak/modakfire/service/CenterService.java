@@ -18,11 +18,28 @@ public class CenterService {
     private final CenterRepository centerRepository;
 
     public List<CenterResponseDTO> findCentersByCon(CenterRequestDTO centerRequestDTO){
+        List<Center> centers;
         String city = centerRequestDTO.getCity();
         String gu = centerRequestDTO.getGu();
         CenterType centerType = centerRequestDTO.getCenterType();
-        List<Center> centers = centerRepository.findAllByCityAndGuAndCenterType(city,gu,centerType);
-        return centers.stream().map((center)->center.translate(center)).toList();
+        if(centerRequestDTO.isAllWhole()) {
+            centers = centerRepository.findAll();
+        }else if (centerRequestDTO.isCityWhole() && centerRequestDTO.isGuWhole()) {
+            centers = centerRepository.findAllByCenterType(centerType);
+        }else if (centerRequestDTO.isCityWhole() && centerRequestDTO.isCenterTypeWhole()) {
+            centers = centerRepository.findAllByGu(gu);
+        }else if (centerRequestDTO.isGuWhole() && centerRequestDTO.isCenterTypeWhole()) {
+            centers = centerRepository.findAllByCity(city);
+        }else if(centerRequestDTO.isCityWhole()){
+            centers = centerRepository.findAllByGuAndCenterType(gu,centerType);
+        } else if(centerRequestDTO.isGuWhole()){
+            centers = centerRepository.findAllByCityAndCenterType(city,centerType);
+        } else if(centerRequestDTO.isCenterTypeWhole()) {
+            centers = centerRepository.findAllByCityAndGu(city, gu);
+        } else {
+            centers = centerRepository.findAllByCityAndGuAndCenterType(city, gu, centerType);
+        }
+        return centers.stream().map(Center::translate).toList();
     }
     public Center findCenterById(Long id){
         return centerRepository.findById(id).orElseThrow();

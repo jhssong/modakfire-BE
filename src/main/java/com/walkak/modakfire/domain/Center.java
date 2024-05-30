@@ -22,13 +22,14 @@ public class Center {
     private String gu;
     private CenterType centerType;
     private String info;
+    private String location;
     private Long donorNum;
 
-    /*@OneToMany(mappedBy = "center")
+    @OneToMany(mappedBy = "center")
     @ToString.Exclude
-    private List<Item> items;*/
+    private List<Item> items;
 
-    public CenterResponseDTO translate(Center center){
+    public CenterResponseDTO translate(){
         CenterResponseDTO centerResponseDTO = new CenterResponseDTO();
         centerResponseDTO.update(this);
         return centerResponseDTO;

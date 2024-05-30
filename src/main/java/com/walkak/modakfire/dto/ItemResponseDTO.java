@@ -13,8 +13,6 @@ public class ItemResponseDTO {
     private Long raisedAmount;
     private String info;
     private String marketName;
-    private Long donationId;
-    private Long periodicalDonationId;
     private Long centerId;
 
     public void update(Item item){
@@ -24,8 +22,6 @@ public class ItemResponseDTO {
         raisedAmount = item.getRaisedAmount();
         info = item.getInfo();
         marketName = item.getMarket().getName();
-        donationId = item.getDonation().getId();
-        periodicalDonationId = item.getPeriodicalDonation().getId();
         centerId = item.getCenter().getId();
     }
 }
