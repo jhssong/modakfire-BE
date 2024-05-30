@@ -1,9 +1,7 @@
 package com.walkak.modakfire.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.walkak.modakfire.dto.DonationResponseDTO;
-import com.walkak.modakfire.dto.MemberResponseDTO;
+import com.walkak.modakfire.dto.SimpleDonationResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,8 +29,8 @@ public class Donation {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
     private Item item;
 
-    public DonationResponseDTO translate(){
-        DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
+    public SimpleDonationResponseDTO translate(){
+        SimpleDonationResponseDTO donationResponseDTO = new SimpleDonationResponseDTO();
         donationResponseDTO.update(this);
         return donationResponseDTO;
     }

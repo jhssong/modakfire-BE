@@ -43,4 +43,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    public Item getItemEntityById(Long id) {
+        return itemRepository.findById(id).orElseThrow();
+    }
 }

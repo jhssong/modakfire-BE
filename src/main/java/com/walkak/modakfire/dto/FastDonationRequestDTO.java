@@ -1,13 +1,11 @@
 package com.walkak.modakfire.dto;
 
 import com.walkak.modakfire.domain.EnumType.CenterType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 @NonNull
 public class FastDonationRequestDTO {

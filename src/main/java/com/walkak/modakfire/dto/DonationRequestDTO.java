@@ -1,7 +1,10 @@
 package com.walkak.modakfire.dto;
 
+import lombok.Data;
+
+@Data
 public class DonationRequestDTO {
-    private Long id;
-    private String date;
+    private String memberId;
+    private Long itemId;
     private Long totalAmount;
 }
