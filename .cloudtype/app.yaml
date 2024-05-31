@@ -1,0 +1,9 @@
+name: modakfire-be
+app: java@17
+options:
+  ports: 8080
+context:
+  git:
+    url: https://github.com/jhssong/modakfire-BE.git
+    branch: develop
+  preset: java-springboot
