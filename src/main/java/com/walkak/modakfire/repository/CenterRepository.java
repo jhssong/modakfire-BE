@@ -18,4 +18,5 @@ public interface CenterRepository extends JpaRepository<Center,Long> {
     List<Center> findAllByCityAndCenterType(String city,CenterType centerType);
     List<Center> findAllByGuAndCenterType(String gu,CenterType centerType);
     Center findByPeriodicalDonationId(Long periodicalDonationId);
+    Center findByItemsId(Long itemId);
 }

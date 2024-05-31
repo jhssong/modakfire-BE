@@ -50,4 +50,8 @@ public class ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("item not found with id: " + itemId));
     }
 
+    public Item findItemByDonationId(Long donationId){
+        return itemRepository.findByDonationId(donationId);
+    }
+
 }

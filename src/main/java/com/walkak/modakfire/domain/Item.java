@@ -5,7 +5,7 @@ import com.walkak.modakfire.dto.ItemResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Comparator;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -21,6 +21,8 @@ public class Item {
     private Long raisedAmount;
     private String info;
     private Status status;
+    private LocalDateTime raisingFinishedTime;
+    private LocalDateTime totalFinishedTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market_id")

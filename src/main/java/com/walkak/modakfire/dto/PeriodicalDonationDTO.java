@@ -15,7 +15,8 @@ public class PeriodicalDonationDTO {
     private LocalDateTime startDate;
     private Long amount;
     private Long donationDate;
-    private CenterResponseDTO centerResponseDTO;
+    private String centerName;
+    private String centerLocation;
 
     @Builder
     public PeriodicalDonationDTO(Long id,LocalDateTime startDate, Long amount, Long donationDate) {

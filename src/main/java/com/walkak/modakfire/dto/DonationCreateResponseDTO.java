@@ -8,7 +8,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DonationResponseDTO {
+public class DonationCreateResponseDTO {
+
     private List<SimpleDonationResponseDTO> donationResponseDTOList = new ArrayList<>();
 
     public void add(SimpleDonationResponseDTO donationResponseDTO) {

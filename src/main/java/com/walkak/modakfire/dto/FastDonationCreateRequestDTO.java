@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NonNull
-public class FastDonationRequestDTO {
+public class FastDonationCreateRequestDTO {
     private String userId;
     private Long totalAmount;
     private String city;

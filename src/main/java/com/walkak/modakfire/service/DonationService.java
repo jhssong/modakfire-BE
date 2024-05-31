@@ -2,9 +2,14 @@ package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.Donation;
+import com.walkak.modakfire.domain.EnumType.Status;
 import com.walkak.modakfire.domain.Item;
+import com.walkak.modakfire.domain.Market;
 import com.walkak.modakfire.dto.*;
+import com.walkak.modakfire.repository.CenterRepository;
 import com.walkak.modakfire.repository.DonationRepository;
+import com.walkak.modakfire.repository.ItemRepository;
+import com.walkak.modakfire.repository.MarketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +24,13 @@ public class DonationService {
     private final CenterService centerService;
     private final ItemService itemService;
     private final MemberService memberService;
+    private final CenterRepository centerRepository;
+    private final ItemRepository itemRepository;
+    private final MarketRepository marketRepository;
 
-    public DonationResponseDTO createFastDonation(FastDonationRequestDTO fastDonationRequestDTO, Long orderId) {
+    public FastDonationCreateResponseDTO createFastDonation(FastDonationCreateRequestDTO fastDonationCreateRequestDTO, Long orderId) {
 
-        DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
+        FastDonationCreateResponseDTO fastDonationCreateResponseDTO = new FastDonationCreateResponseDTO();
 
         // Create random orderId if null
         if (orderId == null) {
@@ -31,14 +39,14 @@ public class DonationService {
 
         // Find centers to donate
         CenterRequestDTO centerRequestDTO = new CenterRequestDTO(
-                fastDonationRequestDTO.getCity(),
+                fastDonationCreateRequestDTO.getCity(),
                 "전체",
-                fastDonationRequestDTO.getCenterType());
+                fastDonationCreateRequestDTO.getCenterType());
         List<CenterResponseDTO> tempCenterList = centerService.findCentersByCon(centerRequestDTO);
         ArrayList<CenterResponseDTO> centerList = new ArrayList<>(tempCenterList);
         Collections.shuffle(centerList);
 
-        Long totalAmount = fastDonationRequestDTO.getTotalAmount();
+        Long totalAmount = fastDonationCreateRequestDTO.getTotalAmount();
 
         // Assume that totalDonation doesn't exceed total amount of items of centers in the city
         for (int centerI = 0; centerI < centerList.size(); centerI++) {
@@ -74,21 +82,25 @@ public class DonationService {
                         .totalAmount(donatedAmount)
                         .orderId(orderId)
                         .item(item)
-                        .member(memberService.getMemberEntityById(fastDonationRequestDTO.getUserId()))
+                        .member(memberService.getMemberEntityById(fastDonationCreateRequestDTO.getUserId()))
                         .build();
 
                 donationRepository.save(donation);
-                donationResponseDTO.add(donation.translate());
+                fastDonationCreateResponseDTO.add(donation.translate());
 
-                if (totalAmount == 0) return donationResponseDTO;
+                if (totalAmount == 0) return fastDonationCreateResponseDTO;
             }
         }
 
-        return donationResponseDTO;
+        if (totalAmount != 0) {
+            Center center = centerRepository.findById(centerList.get(0).getId()).orElseThrow();
+            center.setBalance(totalAmount);
+        }
+        return fastDonationCreateResponseDTO;
     }
 
-    public  DonationResponseDTO createDonation(DonationRequestDTO donationRequestDTO) {
-        DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
+    public  DonationCreateResponseDTO createDonation(DonationCreateRequestDTO donationRequestDTO) {
+        DonationCreateResponseDTO donationResponseDTO = new DonationCreateResponseDTO();
 
         // Create random orderId
         Long orderId = Math.abs(UUID.randomUUID().getMostSignificantBits());
@@ -131,19 +143,53 @@ public class DonationService {
             // Get Center entity
             Center center = item.getCenter();
 
-            FastDonationRequestDTO fastDonationRequestDTO = FastDonationRequestDTO.builder()
+            FastDonationCreateRequestDTO fastDonationCreateRequestDTO = FastDonationCreateRequestDTO.builder()
                     .userId(donationRequestDTO.getMemberId())
                     .totalAmount(totalAmount)
                     .city(center.getCity())
                     .centerType(center.getCenterType())
                     .build();
 
-            DonationResponseDTO fastDonationResult = createFastDonation(fastDonationRequestDTO, orderId);
+            FastDonationCreateResponseDTO fastDonationResult = createFastDonation(fastDonationCreateRequestDTO, orderId);
             for (SimpleDonationResponseDTO s: fastDonationResult.getDonationResponseDTOList()) {
                 donationResponseDTO.add(s);
             }
         }
 
         return donationResponseDTO;
+    }
+    public List<DonationDetailDTO> getDonationListByMemberId(String memberId){
+        List<Donation> donationList = donationRepository.findAllByMemberId(memberId);
+        List<DonationDetailDTO> donationDetailDTOList = new ArrayList<>();
+
+        for (Donation donation : donationList) {
+            DonationDetailDTO donationDetailDTO = new DonationDetailDTO();
+            donationDetailDTO.setDonationId(donation.getId());
+
+            Item item = itemRepository.findByDonationId(donation.getId());
+
+            System.out.println(item);
+            donationDetailDTO.setItemName(item.getName());
+            donationDetailDTO.setStatus(item.getStatus());
+
+            Market market = marketRepository.findById(item.getMarket().getId()).orElseThrow();
+            donationDetailDTO.setMarketName(market.getName());
+
+            Center center = centerRepository.findById(item.getCenter().getId()).orElseThrow();
+            donationDetailDTO.setCenterName(center.getName());
+
+            donationDetailDTOList.add(donationDetailDTO);
+        }
+        return donationDetailDTOList;
+    }
+
+    public DonationTimeInfoDTO getDonationTimeInfoById(Long donationId){
+        Donation donation = donationRepository.findById(donationId).orElseThrow();
+        Item item = donation.getItem();
+
+        DonationTimeInfoDTO timeInfoDTO = new DonationTimeInfoDTO();
+        timeInfoDTO.setRaisingFinishedTime(item.getRaisingFinishedTime());
+        timeInfoDTO.setTotalFinishedTime(item.getTotalFinishedTime());
+        return timeInfoDTO;
     }
 }

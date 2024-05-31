@@ -21,6 +21,7 @@ public class Donation {
     private Long orderId;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
+    @ToString.Exclude
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)

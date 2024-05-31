@@ -16,7 +16,7 @@ public class CenterRequestDTO {
     private CenterType centerType;
 
     public boolean isCityWhole(){
-        return city.equals("전체");
+        return city.equals("전국");
     }
     public boolean isGuWhole(){
         return gu.equals("전체");

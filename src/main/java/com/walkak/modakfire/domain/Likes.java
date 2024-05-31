@@ -15,8 +15,8 @@ public class Likes {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
-
     private Member member;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="center_id")
     private Center center;
