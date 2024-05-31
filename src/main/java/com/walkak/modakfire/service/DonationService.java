@@ -2,7 +2,6 @@ package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.Donation;
-import com.walkak.modakfire.domain.EnumType.Status;
 import com.walkak.modakfire.domain.Item;
 import com.walkak.modakfire.domain.Market;
 import com.walkak.modakfire.dto.*;
@@ -12,12 +11,14 @@ import com.walkak.modakfire.repository.ItemRepository;
 import com.walkak.modakfire.repository.MarketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class DonationService {
 
     private final DonationRepository donationRepository;
@@ -28,6 +29,7 @@ public class DonationService {
     private final ItemRepository itemRepository;
     private final MarketRepository marketRepository;
 
+    @Transactional
     public FastDonationCreateResponseDTO createFastDonation(FastDonationCreateRequestDTO fastDonationCreateRequestDTO, Long orderId) {
 
         FastDonationCreateResponseDTO fastDonationCreateResponseDTO = new FastDonationCreateResponseDTO();
@@ -82,7 +84,7 @@ public class DonationService {
                         .totalAmount(donatedAmount)
                         .orderId(orderId)
                         .item(item)
-                        .member(memberService.getMemberEntityById(fastDonationCreateRequestDTO.getUserId()))
+                        .member(memberService.getMemberEntityById(fastDonationCreateRequestDTO.getMemberId()))
                         .build();
 
                 donationRepository.save(donation);
@@ -95,10 +97,12 @@ public class DonationService {
         if (totalAmount != 0) {
             Center center = centerRepository.findById(centerList.get(0).getId()).orElseThrow();
             center.setBalance(totalAmount);
+            centerRepository.save(center);
         }
         return fastDonationCreateResponseDTO;
     }
 
+    @Transactional
     public  DonationCreateResponseDTO createDonation(DonationCreateRequestDTO donationRequestDTO) {
         DonationCreateResponseDTO donationResponseDTO = new DonationCreateResponseDTO();
 
@@ -144,7 +148,7 @@ public class DonationService {
             Center center = item.getCenter();
 
             FastDonationCreateRequestDTO fastDonationCreateRequestDTO = FastDonationCreateRequestDTO.builder()
-                    .userId(donationRequestDTO.getMemberId())
+                    .memberId(donationRequestDTO.getMemberId())
                     .totalAmount(totalAmount)
                     .city(center.getCity())
                     .centerType(center.getCenterType())

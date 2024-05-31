@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NonNull
 public class FastDonationCreateRequestDTO {
-    private String userId;
+    private String memberId;
     private Long totalAmount;
     private String city;
     private String gu;
