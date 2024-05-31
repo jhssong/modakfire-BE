@@ -7,6 +7,8 @@ import com.walkak.modakfire.service.CenterService;
 import com.walkak.modakfire.service.ItemService;
 import com.walkak.modakfire.service.LikesService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,15 +19,11 @@ import java.util.List;
 @RequestMapping("/centers")
 public class CenterController {
 
-    private final ItemService itemService;
     private final CenterService centerService;
     private final LikesService likesService;
 
-    /*
-    Main home
-     */
     @GetMapping
-    public List<CenterForLikeNumDTO> viewCentersByCond(@RequestBody CenterRequestDTO centerRequestDTO){
+    public List<CenterForLikeNumDTO> findCentersByCond(@RequestBody CenterRequestDTO centerRequestDTO){
         List<CenterResponseDTO> centersByCon = centerService.findCentersByCon(centerRequestDTO);
         List<CenterForLikeNumDTO> centerForLikeNumDTOList =new ArrayList<>();
         for (CenterResponseDTO centerResponseDTO : centersByCon) {
@@ -35,44 +33,11 @@ public class CenterController {
         }
         return centerForLikeNumDTOList;
     }
-    /*
-    CenterHome-registerDate
-     */
-    @GetMapping("/registerDate/{centerId}")
-    public CenterHomeResponseDTO viewCenterAndItemsByRegisterDate(@PathVariable Long centerId){
-        Center center = centerService.findCenterById(centerId);
-        List<Item> items = itemService.findItemsByCenterIdAndSortByItemId(centerId);
-        List<ItemResponseDTO> itemResponseDTOList = items.stream().map(Item::translate).toList();
 
-        CenterHomeResponseDTO centerHomeResponseDTO = new CenterHomeResponseDTO();
-        CenterForLikeNumDTO centerForLikeNumDTO = new CenterForLikeNumDTO();
-        centerForLikeNumDTO.update(center.translate(),likesService.getLikesCountByCenterId(centerId));
-        centerHomeResponseDTO.setCenterForLikeNumDTO(centerForLikeNumDTO);
-        centerHomeResponseDTO.setItemResponseDTOList(itemResponseDTOList);
-        return centerHomeResponseDTO;
-    }
-    /*
-    CenterHome-raisedAmount
-     */
-    @GetMapping("/raisedAmount/{centerId}")
-    public CenterHomeResponseDTO viewCenterAndItemsByRaisedAmount(@PathVariable Long centerId){
+    @GetMapping("/{centerId}")
+    public CenterResponseDTO findCenter(@PathVariable Long centerId){
         Center center = centerService.findCenterById(centerId);
-        List<Item> items = itemService.findItemsByCenterIdAndSortByRaisedAmount(centerId);
-        List<ItemResponseDTO> itemResponseDTOList = items.stream().map(Item::translate).toList();
-
-        CenterHomeResponseDTO centerHomeResponseDTO = new CenterHomeResponseDTO();
-        CenterForLikeNumDTO centerForLikeNumDTO = new CenterForLikeNumDTO();
-        centerForLikeNumDTO.update(center.translate(),likesService.getLikesCountByCenterId(centerId));
-        centerHomeResponseDTO.setCenterForLikeNumDTO(centerForLikeNumDTO);
-        centerHomeResponseDTO.setItemResponseDTOList(itemResponseDTOList);
-        return centerHomeResponseDTO;
-    }
-    /*
-    CenterItemDetail
-     */
-    @GetMapping("/items/{itemId}")
-    public ItemResponseDTO viewItemDetail(@PathVariable Long itemId){
-        return itemService.findItemByItemId(itemId);
+        return center.translate();
     }
 
 }
