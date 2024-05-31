@@ -16,7 +16,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/centers")
+@RequestMapping("/api/centers")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CenterController {
 
     private final CenterService centerService;
