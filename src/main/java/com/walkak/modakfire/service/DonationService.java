@@ -25,7 +25,9 @@ public class DonationService {
         DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
 
         // Create random orderId if null
-        if (orderId == null) orderId = Math.abs(UUID.randomUUID().getMostSignificantBits());
+        if (orderId == null) {
+            orderId = Math.abs(UUID.randomUUID().getMostSignificantBits());
+        }
 
         // Find centers to donate
         CenterRequestDTO centerRequestDTO = new CenterRequestDTO(
@@ -51,7 +53,6 @@ public class DonationService {
                 long donatedAmount = 0;
 
                 if (Objects.equals(price, raisedAmount)) continue;
-                System.out.println(item.getId() + " : price = " + price + ", raised = " + raisedAmount);
 
                 if (raisedAmount + totalAmount <= price) {  // totalAmount <= needed
                     raisedAmount += totalAmount;

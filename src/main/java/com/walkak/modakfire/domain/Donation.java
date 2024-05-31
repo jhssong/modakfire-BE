@@ -18,6 +18,7 @@ public class Donation {
     private Long id;
     private LocalDateTime date;
     private Long totalAmount;
+    private Long orderId;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
     private Item item;
@@ -32,6 +33,7 @@ public class Donation {
     public Donation(LocalDateTime date, Long totalAmount, Long orderId, Member member,Item item) {
         this.date = date;
         this.totalAmount = totalAmount;
+        this.orderId = orderId;
         this.member = member;
         this.item = item;
     }
