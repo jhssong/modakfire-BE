@@ -21,7 +21,6 @@ public class ItemService {
         return itemRepository.findAllByCenterId(id);
     }
     public ItemResponseDTO findItemByItemId(Long id){
-
         Item item = itemRepository.findById(id).orElseThrow();
         ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
         itemResponseDTO.update(item);
@@ -44,6 +43,11 @@ public class ItemService {
         System.out.println(item);
         itemRepository.save(item);
         return item.translate();
+    }
+
+    public Item getItemEntityById(Long itemId){
+        return itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("item not found with id: " + itemId));
     }
 
 }

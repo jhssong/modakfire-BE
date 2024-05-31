@@ -19,20 +19,22 @@ public class Donation {
     private LocalDateTime date;
     private Long totalAmount;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
+    private Item item;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @JsonIgnore
     @ToString.Exclude
     private Member member;
+
     @Builder
-    public Donation(LocalDateTime date, Long totalAmount, Long orderId, Member member) {
+    public Donation(LocalDateTime date, Long totalAmount, Long orderId, Member member,Item item) {
         this.date = date;
         this.totalAmount = totalAmount;
         this.member = member;
+        this.item = item;
     }
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
-    private Item item;
 
     public SimpleDonationResponseDTO translate(){
         SimpleDonationResponseDTO donationResponseDTO = new SimpleDonationResponseDTO();
