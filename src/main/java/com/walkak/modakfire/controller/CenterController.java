@@ -1,6 +1,7 @@
 package com.walkak.modakfire.controller;
 
 import com.walkak.modakfire.domain.Center;
+import com.walkak.modakfire.domain.EnumType.CenterType;
 import com.walkak.modakfire.domain.Item;
 import com.walkak.modakfire.dto.*;
 import com.walkak.modakfire.service.CenterService;
@@ -23,7 +24,12 @@ public class CenterController {
     private final LikesService likesService;
 
     @GetMapping
-    public List<CenterForLikeNumDTO> findCentersByCond(@RequestBody CenterRequestDTO centerRequestDTO){
+    public List<CenterForLikeNumDTO> findCentersByCond(@RequestParam String city, @RequestParam String gu, @RequestParam CenterType centerType){
+        CenterRequestDTO centerRequestDTO = CenterRequestDTO.builder()
+                .gu(gu)
+                .city(city)
+                .centerType(centerType)
+                .build();
         List<CenterResponseDTO> centersByCon = centerService.findCentersByCon(centerRequestDTO);
         List<CenterForLikeNumDTO> centerForLikeNumDTOList =new ArrayList<>();
         for (CenterResponseDTO centerResponseDTO : centersByCon) {

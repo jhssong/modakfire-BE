@@ -2,6 +2,7 @@ package com.walkak.modakfire.dto;
 
 import com.walkak.modakfire.domain.EnumType.CenterType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,12 @@ public class CenterRequestDTO {
     private String city;
     private String gu;
     private CenterType centerType;
-
+    @Builder
+    public CenterRequestDTO(String city, String gu, CenterType centerType) {
+        this.city = city;
+        this.gu = gu;
+        this.centerType = centerType;
+    }
     public boolean isCityWhole(){
         return city.equals("전국");
     }
