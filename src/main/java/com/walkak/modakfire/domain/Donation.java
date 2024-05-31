@@ -9,22 +9,27 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Donation {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="donation_id")
     private Long id;
     private LocalDateTime date;
     private Long totalAmount;
-    private Long orderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @JsonIgnore
     @ToString.Exclude
     private Member member;
+    @Builder
+    public Donation(LocalDateTime date, Long totalAmount, Long orderId, Member member) {
+        this.date = date;
+        this.totalAmount = totalAmount;
+        this.member = member;
+    }
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "donation")
     private Item item;

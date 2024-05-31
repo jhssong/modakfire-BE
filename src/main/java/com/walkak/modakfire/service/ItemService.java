@@ -1,5 +1,6 @@
 package com.walkak.modakfire.service;
 
+import com.walkak.modakfire.domain.EnumType.Status;
 import com.walkak.modakfire.domain.Item;
 import com.walkak.modakfire.dto.ItemResponseDTO;
 import com.walkak.modakfire.repository.ItemRepository;
@@ -16,19 +17,6 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public List<Item> findItemsByCenterIdAndSortByRaisedAmount(Long id){
-        List<Item> items = itemRepository.findAllByCenterId(id);
-        items.sort(Item.raisedAmountComparator);
-        for (Item item : items) {
-            System.out.println(item);
-        }
-        return items;
-    }
-    public List<Item> findItemsByCenterIdAndSortByItemId(Long id){
-        List<Item> items = itemRepository.findAllByCenterId(id);
-        items.sort(Item.idComparator);
-        return items;
-    }
     public List<Item> findItemsByCenterId(Long id){
         return itemRepository.findAllByCenterId(id);
     }
@@ -42,8 +30,20 @@ public class ItemService {
     public void updateItemByDonation(Item item) {
         itemRepository.save(item);
     }
-
-    public Item getItemEntityById(Long id) {
-        return itemRepository.findById(id).orElseThrow();
+  
+    public Status getItemStatus(Long itemId){
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(()->new IllegalArgumentException("item not found with id: "+itemId));
+        return item.getStatus();
     }
+    @Transactional
+    public ItemResponseDTO updateItemStatus(Long itemId,int status){
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(()->new IllegalArgumentException("item not found with id: "+itemId));
+        item.setStatus(Status.fromOrdinal(status));
+        System.out.println(item);
+        itemRepository.save(item);
+        return item.translate();
+    }
+
 }

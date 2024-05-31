@@ -13,17 +13,16 @@ import java.util.List;
 
 @Data
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
+
     @Id
     @Column(name = "member_id")
     private String id;
     private String name;
     private String email;
     private MemberRank memberRank;
-//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerDate;
 
     @OneToMany(mappedBy = "member")
@@ -38,6 +37,14 @@ public class Member {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.registerDate = LocalDateTime.parse(registerDate, formatter);
         this.likes = null;
+    }
+    @Builder
+    public Member(String name, String email, MemberRank memberRank, LocalDateTime registerDate, List<Likes> likes) {
+        this.name = name;
+        this.email = email;
+        this.memberRank = memberRank;
+        this.registerDate = registerDate;
+        this.likes = likes;
     }
 
     @OneToMany(mappedBy = "member")

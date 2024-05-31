@@ -1,17 +1,13 @@
 package com.walkak.modakfire.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Likes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="likes_id")
@@ -19,9 +15,15 @@ public class Likes {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
-    private Member member;
 
+    private Member member;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="center_id")
     private Center center;
+
+    @Builder
+    public Likes(Member member, Center center) {
+        this.member = member;
+        this.center = center;
+    }
 }

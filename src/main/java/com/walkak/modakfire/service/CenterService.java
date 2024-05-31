@@ -15,13 +15,16 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CenterService {
+
     private final CenterRepository centerRepository;
 
     public List<CenterResponseDTO> findCentersByCon(CenterRequestDTO centerRequestDTO){
         List<Center> centers;
+
         String city = centerRequestDTO.getCity();
         String gu = centerRequestDTO.getGu();
         CenterType centerType = centerRequestDTO.getCenterType();
+
         if(centerRequestDTO.isAllWhole()) {
             centers = centerRepository.findAll();
         }else if (centerRequestDTO.isCityWhole() && centerRequestDTO.isGuWhole()) {
@@ -41,9 +44,9 @@ public class CenterService {
         }
         return centers.stream().map(Center::translate).toList();
     }
+
     public Center findCenterById(Long id){
         return centerRepository.findById(id).orElseThrow();
     }
-
 
 }
