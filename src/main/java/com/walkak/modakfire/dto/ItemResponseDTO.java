@@ -1,6 +1,7 @@
 package com.walkak.modakfire.dto;
 
 import com.walkak.modakfire.domain.*;
+import com.walkak.modakfire.domain.EnumType.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ public class ItemResponseDTO {
     private String info;
     private String marketName;
     private Long centerId;
+    private Status status;
 
     public void update(Item item){
         id = item.getId();
@@ -23,5 +25,6 @@ public class ItemResponseDTO {
         info = item.getInfo();
         marketName = item.getMarket().getName();
         centerId = item.getCenter().getId();
+        status = item.getStatus();
     }
 }
