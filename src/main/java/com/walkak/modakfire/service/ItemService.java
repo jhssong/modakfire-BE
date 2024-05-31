@@ -27,7 +27,10 @@ public class ItemService {
         itemResponseDTO.update(item);
         return itemResponseDTO;
     }
-
+    public void updateItemByDonation(Item item) {
+        itemRepository.save(item);
+    }
+  
     public Status getItemStatus(Long itemId){
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(()->new IllegalArgumentException("item not found with id: "+itemId));
