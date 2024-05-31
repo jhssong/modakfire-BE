@@ -2,7 +2,6 @@ package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.Donation;
-import com.walkak.modakfire.domain.EnumType.Status;
 import com.walkak.modakfire.domain.Item;
 import com.walkak.modakfire.domain.Market;
 import com.walkak.modakfire.dto.*;
@@ -82,7 +81,7 @@ public class DonationService {
                         .totalAmount(donatedAmount)
                         .orderId(orderId)
                         .item(item)
-                        .member(memberService.getMemberEntityById(fastDonationCreateRequestDTO.getUserId()))
+                        .member(memberService.getMemberEntityById(fastDonationCreateRequestDTO.getMemberId()))
                         .build();
 
                 donationRepository.save(donation);
@@ -144,7 +143,7 @@ public class DonationService {
             Center center = item.getCenter();
 
             FastDonationCreateRequestDTO fastDonationCreateRequestDTO = FastDonationCreateRequestDTO.builder()
-                    .userId(donationRequestDTO.getMemberId())
+                    .memberId(donationRequestDTO.getMemberId())
                     .totalAmount(totalAmount)
                     .city(center.getCity())
                     .centerType(center.getCenterType())
