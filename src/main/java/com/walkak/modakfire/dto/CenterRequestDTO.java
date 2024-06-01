@@ -10,7 +10,6 @@ import static com.walkak.modakfire.domain.EnumType.CenterType.WHOLE;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CenterRequestDTO {
     private String city;
     private String gu;
