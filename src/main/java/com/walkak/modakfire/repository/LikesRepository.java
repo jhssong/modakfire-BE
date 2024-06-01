@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface LikesRepository extends JpaRepository<Likes,Long> {
     Long countByCenterId(long centerId);
-
     boolean existsByCenterIdAndMemberId(long centerId,String memberId);
     Optional<Likes> findByMemberAndCenter(Member member,Center center);
 }

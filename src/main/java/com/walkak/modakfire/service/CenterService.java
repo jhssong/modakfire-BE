@@ -2,9 +2,11 @@ package com.walkak.modakfire.service;
 
 import com.walkak.modakfire.domain.Center;
 import com.walkak.modakfire.domain.EnumType.CenterType;
+import com.walkak.modakfire.dto.CenterForLikeNumDTO;
 import com.walkak.modakfire.dto.CenterResponseDTO;
 import com.walkak.modakfire.dto.CenterRequestDTO;
 import com.walkak.modakfire.repository.CenterRepository;
+import com.walkak.modakfire.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import java.util.List;
 public class CenterService {
 
     private final CenterRepository centerRepository;
+    private final LikesRepository likesRepository;
 
     public List<CenterResponseDTO> findCentersByCon(CenterRequestDTO centerRequestDTO){
         List<Center> centers;
@@ -45,8 +48,12 @@ public class CenterService {
         return centers.stream().map(Center::translate).toList();
     }
 
-    public Center findCenterById(Long id){
-        return centerRepository.findById(id).orElseThrow();
+    public CenterForLikeNumDTO findCenterById(Long centerId){
+        CenterForLikeNumDTO dto = new CenterForLikeNumDTO();
+        Center center = centerRepository.findById(centerId).orElseThrow();
+        long likeNum = likesRepository.countByCenterId(centerId);
+        dto.update(center.translate(),likeNum);
+        return dto;
     }
 
 }

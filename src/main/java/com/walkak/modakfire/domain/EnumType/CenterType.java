@@ -27,4 +27,5 @@ public enum CenterType {
         }
         throw new IllegalArgumentException("Invalid CenterType value: " + value);
     }
+
 }

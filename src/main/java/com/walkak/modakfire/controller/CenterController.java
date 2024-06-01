@@ -25,11 +25,12 @@ public class CenterController {
     private final LikesService likesService;
 
     @GetMapping
-    public List<CenterForLikeNumDTO> findCentersByCond(@RequestParam String city, @RequestParam String gu, @RequestParam CenterType centerType){
+    public List<CenterForLikeNumDTO> findCentersByCond(@RequestParam String city, @RequestParam String gu, @RequestParam int centerType){
+
         CenterRequestDTO centerRequestDTO = CenterRequestDTO.builder()
                 .gu(gu)
                 .city(city)
-                .centerType(centerType)
+                .centerType(CenterType.fromValue(centerType))
                 .build();
         List<CenterResponseDTO> centersByCon = centerService.findCentersByCon(centerRequestDTO);
         List<CenterForLikeNumDTO> centerForLikeNumDTOList =new ArrayList<>();
@@ -42,9 +43,8 @@ public class CenterController {
     }
 
     @GetMapping("/{centerId}")
-    public CenterResponseDTO findCenter(@PathVariable Long centerId){
-        Center center = centerService.findCenterById(centerId);
-        return center.translate();
+    public CenterForLikeNumDTO findCenter(@PathVariable Long centerId){
+        return centerService.findCenterById(centerId);
     }
 
 }
