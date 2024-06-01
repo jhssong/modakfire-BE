@@ -15,6 +15,7 @@ public class PeriodicalDonationDTO {
     private LocalDateTime startDate;
     private Long amount;
     private Long donationDate;
+    private Long centerId;
     private String centerName;
     private String centerLocation;
 

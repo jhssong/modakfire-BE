@@ -61,6 +61,7 @@ public class PeriodicalDonationService {
             Center center = centerRepository.findByPeriodicalDonationId(periodicalDonation.getId());
             periodicalDonationDTO.setCenterName(center.getName());
             periodicalDonationDTO.setCenterLocation(center.getLocation());
+            periodicalDonationDTO.setCenterId(center.getId());
             periodicalDonationDTOList.add(periodicalDonationDTO);
         }
         return periodicalDonationDTOList;

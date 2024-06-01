@@ -47,7 +47,6 @@ public class CenterService {
         }
         return centers.stream().map(Center::translate).toList();
     }
-
     public CenterForLikeNumDTO findCenterById(Long centerId){
         CenterForLikeNumDTO dto = new CenterForLikeNumDTO();
         Center center = centerRepository.findById(centerId).orElseThrow();
