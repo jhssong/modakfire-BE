@@ -19,6 +19,7 @@ public class Center {
     private String name;
     private String city;
     private String gu;
+    @Enumerated(EnumType.ORDINAL)
     private CenterType centerType;
     private String info;
     private String location;
