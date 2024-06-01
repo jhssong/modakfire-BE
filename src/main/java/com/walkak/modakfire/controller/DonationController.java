@@ -26,12 +26,7 @@ public class DonationController {
     }
 
     @GetMapping("/{memberId}")
-    public List<DonationDetailDTO> getDonationListByMemberId(@PathVariable String memberId){
+    public List<DonationResponseDTO> getDonationListByMemberId(@PathVariable String memberId){
         return donationService.getDonationListByMemberId(memberId);
-    }
-
-    @GetMapping("/timeInfo/{donationId}")
-    public DonationTimeInfoDTO getDonationTimeInfoById(@PathVariable Long donationId){
-        return donationService.getDonationTimeInfoById(donationId);
     }
 }

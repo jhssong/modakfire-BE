@@ -162,38 +162,29 @@ public class DonationService {
 
         return donationResponseDTO;
     }
-    public List<DonationDetailDTO> getDonationListByMemberId(String memberId){
+    public List<DonationResponseDTO> getDonationListByMemberId(String memberId){
         List<Donation> donationList = donationRepository.findAllByMemberId(memberId);
-        List<DonationDetailDTO> donationDetailDTOList = new ArrayList<>();
+        List<DonationResponseDTO> donationResponseDTOList = new ArrayList<>();
 
         for (Donation donation : donationList) {
-            DonationDetailDTO donationDetailDTO = new DonationDetailDTO();
-            donationDetailDTO.setDonationId(donation.getId());
+            DonationResponseDTO donationResponseDTO = new DonationResponseDTO();
+            donationResponseDTO.setDonationId(donation.getId());
 
             Item item = itemRepository.findByDonationId(donation.getId());
 
             System.out.println(item);
-            donationDetailDTO.setItemName(item.getName());
-            donationDetailDTO.setStatus(item.getStatus());
+            donationResponseDTO.setItemName(item.getName());
+            donationResponseDTO.setStatus(item.getStatus());
 
             Market market = marketRepository.findById(item.getMarket().getId()).orElseThrow();
-            donationDetailDTO.setMarketName(market.getName());
+            donationResponseDTO.setMarketName(market.getName());
 
             Center center = centerRepository.findById(item.getCenter().getId()).orElseThrow();
-            donationDetailDTO.setCenterName(center.getName());
+            donationResponseDTO.setCenterName(center.getName());
 
-            donationDetailDTOList.add(donationDetailDTO);
+            donationResponseDTOList.add(donationResponseDTO);
         }
-        return donationDetailDTOList;
+        return donationResponseDTOList;
     }
 
-    public DonationTimeInfoDTO getDonationTimeInfoById(Long donationId){
-        Donation donation = donationRepository.findById(donationId).orElseThrow();
-        Item item = donation.getItem();
-
-        DonationTimeInfoDTO timeInfoDTO = new DonationTimeInfoDTO();
-        timeInfoDTO.setRaisingFinishedTime(item.getRaisingFinishedTime());
-        timeInfoDTO.setTotalFinishedTime(item.getTotalFinishedTime());
-        return timeInfoDTO;
-    }
 }

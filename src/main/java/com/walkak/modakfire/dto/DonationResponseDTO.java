@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DonationDetailDTO {
+public class DonationResponseDTO {
     Long donationId;
     String itemName;
     String centerName;

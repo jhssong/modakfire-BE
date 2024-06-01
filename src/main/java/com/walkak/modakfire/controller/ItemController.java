@@ -38,4 +38,8 @@ public class ItemController {
     public ItemResponseDTO updateItemStatus(@PathVariable Long itemId,@RequestParam int status){
         return itemService.updateItemStatus(itemId,status);
     }
+    @GetMapping("/{donationId}")
+    public ItemResponseDTO getItemInfoByDonationId(@PathVariable Long donationId){
+        return itemService.findItemByDonationId(donationId);
+    }
 }
