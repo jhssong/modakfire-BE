@@ -36,6 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-*.yml
-application.properties
-application.yml
+.cloudtype
+.cloudtype/app.yaml

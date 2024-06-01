@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PW}
+
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      show_sql: true
+      format_sql: true
+      ddl-auto: update
