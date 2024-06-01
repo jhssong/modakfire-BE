@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/items")
-@CrossOrigin(origins = {"http://localhost:5173", "https://port-0-modakfire-be-1272llwutmz86.sel5.cloudtype.app/api"})
+@CrossOrigin(origins = {"http://localhost:5173", "https://walkak-modakfire.web.app"})
 public class ItemController {
 
     private final ItemService itemService;
