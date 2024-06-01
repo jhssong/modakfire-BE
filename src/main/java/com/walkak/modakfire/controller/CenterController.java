@@ -43,7 +43,7 @@ public class CenterController {
     }
 
     @GetMapping("/{centerId}")
-    public CenterForLikeNumDTO findCenter(@PathVariable Long centerId){
+    public CenterForLikeNumDTO findCenterById(@PathVariable Long centerId){
         return centerService.findCenterById(centerId);
     }
 
