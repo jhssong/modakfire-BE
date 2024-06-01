@@ -187,4 +187,15 @@ public class DonationService {
         return donationResponseDTOList;
     }
 
+    public DonationDetailIResponseDTO getDonationDetailByDonationId(Long donationId){
+        Item item = itemRepository.findByDonationId(donationId);
+        Donation donation = donationRepository.findById(donationId).orElseThrow();
+        DonationDetailIResponseDTO dto = new DonationDetailIResponseDTO();
+        dto.setTotalFinishedTime(item.getTotalFinishedTime());
+        dto.setRaisingFinishedTime(item.getRaisingFinishedTime());
+        dto.setStatus(item.getStatus());
+        dto.setItemId(item.getId());
+        dto.setTotalAmount(donation.getTotalAmount());
+        return dto;
+    }
 }

@@ -15,4 +15,5 @@ public class DonationDetailIResponseDTO {
     private LocalDateTime totalFinishedTime;
     Long itemId;
     Status status;
+    Long totalAmount;
 }

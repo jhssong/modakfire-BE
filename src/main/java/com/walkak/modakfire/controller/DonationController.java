@@ -29,4 +29,10 @@ public class DonationController {
     public List<DonationResponseDTO> getDonationListByMemberId(@PathVariable String memberId){
         return donationService.getDonationListByMemberId(memberId);
     }
+
+    @GetMapping("/{donationId}")
+    public DonationDetailIResponseDTO getDonationDetailByDonationId(@PathVariable Long donationId){
+        return donationService.getDonationDetailByDonationId(donationId);
+    }
+
 }
