@@ -14,6 +14,8 @@ public class SimpleDonationResponseDTO {
     private Long totalAmount;
     private Long orderId;
     private Long itemId;
+    private String centerName;
+    private String itemName;
 
     public void update(Donation donation){
         id = donation.getId();
@@ -21,5 +23,7 @@ public class SimpleDonationResponseDTO {
         totalAmount = donation.getTotalAmount();
         orderId = donation.getOrderId();
         itemId = donation.getItem().getId();
+        itemName = donation.getItem().getName();
+        centerName = donation.getItem().getCenter().getName();
     }
 }
