@@ -20,8 +20,7 @@ public class ItemController {
 
     @GetMapping("/center/{centerId}")
     public List<ItemResponseDTO> findItemsByCenterId(@PathVariable Long centerId){
-        List<Item> items = itemService.findItemsByCenterId(centerId);
-        return items.stream().map(Item::translate).toList();
+        return itemService.findItemListByCenterId(centerId);
     }
 
     @GetMapping("/{itemId}")
@@ -38,7 +37,7 @@ public class ItemController {
     public ItemResponseDTO updateItemStatus(@PathVariable Long itemId,@RequestParam int status){
         return itemService.updateItemStatus(itemId,status);
     }
-    @GetMapping("detail/{donationId}")
+    @GetMapping("/detail/{donationId}")
     public ItemResponseDTO getItemInfoByDonationId(@PathVariable Long donationId){
         return itemService.findItemByDonationId(donationId);
     }

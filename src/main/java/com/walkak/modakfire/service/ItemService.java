@@ -17,6 +17,10 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    public List<ItemResponseDTO> findItemListByCenterId(Long id){
+        List<Item> items = itemRepository.findAllByCenterId(id);;
+        return items.stream().map(Item::translate).toList();
+    }
     public List<Item> findItemsByCenterId(Long id){
         return itemRepository.findAllByCenterId(id);
     }
