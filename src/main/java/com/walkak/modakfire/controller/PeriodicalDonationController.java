@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/periodicalDonations")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://walkak-modakfire.web.app"})
 public class PeriodicalDonationController {
 
     private final PeriodicalDonationService periodicalDonationService;
