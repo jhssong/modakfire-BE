@@ -140,6 +140,6 @@ https://walkak-modakfire.web.app/
 
 #### 5. 기부 id로 아이템 정보 읽기
 
-**엔드 포인트**:  `PUT /items/detail/{donationId}`
-**API Function**: `getItemInfoByDonationId`
+- **엔드 포인트**:  `PUT /items/detail/{donationId}`
+- **API Function**: `getItemInfoByDonationId`
 
